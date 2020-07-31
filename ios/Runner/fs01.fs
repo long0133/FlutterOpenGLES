@@ -1,7 +1,10 @@
 #version 300 es
 precision mediump float;
+in vec2 texCoord;
 out vec4 aColor;
 
+uniform sampler2D texture1;
+uniform sampler2D texture2;
 void main(){
-    aColor = vec4(0.4,0.2,0.8,1.0);
+    aColor = mix(texture(texture1, texCoord), texture(texture2, texCoord), 0.3);
 }
