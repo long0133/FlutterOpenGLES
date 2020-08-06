@@ -22,7 +22,6 @@
 		F319659624D2BEBE003E8972 /* App.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F319659324D2BEBB003E8972 /* App.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F319659E24D2C16C003E8972 /* esShapes.c in Sources */ = {isa = PBXBuildFile; fileRef = F319659A24D2C16B003E8972 /* esShapes.c */; };
 		F319659F24D2C16C003E8972 /* esShader.c in Sources */ = {isa = PBXBuildFile; fileRef = F319659B24D2C16C003E8972 /* esShader.c */; };
-		F31965A024D2C16C003E8972 /* esTransform.c in Sources */ = {isa = PBXBuildFile; fileRef = F319659C24D2C16C003E8972 /* esTransform.c */; };
 		F31965A124D2C16C003E8972 /* esUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = F319659D24D2C16C003E8972 /* esUtil.c */; };
 		F31965A424D2C198003E8972 /* FileWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F31965A224D2C198003E8972 /* FileWrapper.m */; };
 		F31965A824D2C205003E8972 /* vs01.vs in Resources */ = {isa = PBXBuildFile; fileRef = F31965A724D2C205003E8972 /* vs01.vs */; };
@@ -181,10 +180,8 @@
 		F319658B24D2B3AD003E8972 /* OpenGLRender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenGLRender.m; sourceTree = "<group>"; };
 		F319659324D2BEBB003E8972 /* App.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = App.framework; path = Flutter/App.framework; sourceTree = "<group>"; };
 		F319659824D2C14F003E8972 /* esUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = esUtil.h; sourceTree = "<group>"; };
-		F319659924D2C14F003E8972 /* esUtil_win.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = esUtil_win.h; sourceTree = "<group>"; };
 		F319659A24D2C16B003E8972 /* esShapes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = esShapes.c; sourceTree = "<group>"; };
 		F319659B24D2C16C003E8972 /* esShader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = esShader.c; sourceTree = "<group>"; };
-		F319659C24D2C16C003E8972 /* esTransform.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = esTransform.c; sourceTree = "<group>"; };
 		F319659D24D2C16C003E8972 /* esUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = esUtil.c; sourceTree = "<group>"; };
 		F31965A224D2C198003E8972 /* FileWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileWrapper.m; sourceTree = "<group>"; };
 		F31965A324D2C198003E8972 /* FileWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileWrapper.h; sourceTree = "<group>"; };
@@ -539,12 +536,10 @@
 				F31965AF24D2C23F003E8972 /* tex_image.hpp */,
 				F31965A324D2C198003E8972 /* FileWrapper.h */,
 				F31965A224D2C198003E8972 /* FileWrapper.m */,
-				F319659924D2C14F003E8972 /* esUtil_win.h */,
 				F319659824D2C14F003E8972 /* esUtil.h */,
+				F319659D24D2C16C003E8972 /* esUtil.c */,
 				F319659B24D2C16C003E8972 /* esShader.c */,
 				F319659A24D2C16B003E8972 /* esShapes.c */,
-				F319659C24D2C16C003E8972 /* esTransform.c */,
-				F319659D24D2C16C003E8972 /* esUtil.c */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -1093,7 +1088,6 @@
 				F319709F24D3EEB8003E8972 /* glm.cpp in Sources */,
 				F319658C24D2B3AD003E8972 /* SampleRenderWorker.m in Sources */,
 				F319658D24D2B3AD003E8972 /* OpenglTexturePlugin.m in Sources */,
-				F31965A024D2C16C003E8972 /* esTransform.c in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				F319659F24D2C16C003E8972 /* esShader.c in Sources */,
 				F319658E24D2B3AD003E8972 /* OpenGLRender.m in Sources */,

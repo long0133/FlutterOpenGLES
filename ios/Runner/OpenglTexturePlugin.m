@@ -5,6 +5,7 @@
 @interface OpenglTexturePlugin()
 @property (nonatomic, strong) NSMutableDictionary<NSNumber *, OpenGLRender *> *renders;
 @property (nonatomic, strong) NSObject<FlutterTextureRegistry> *textures;
+@property (nonatomic, strong) SampleRenderWorker *worker;
 @end
 
 @implementation OpenglTexturePlugin
@@ -30,11 +31,12 @@
         CGFloat width = [call.arguments[@"width"] floatValue];
         CGFloat height = [call.arguments[@"height"] floatValue];
         
-        NSInteger __block textureId;
+        int64_t __block textureId;
         id<FlutterTextureRegistry> __weak registry = self.textures;
+        _worker = [[SampleRenderWorker alloc] init];
         
         OpenGLRender *render = [[OpenGLRender alloc] initWithSize:CGSizeMake(width, height)
-                                                           worker:[[SampleRenderWorker alloc] init]
+                                                           worker:_worker
                                                        onNewFrame:^{
                                                            [registry textureFrameAvailable:textureId];
                                                        }];
@@ -48,7 +50,13 @@
         [render dispose];
         [self.renders removeObjectForKey:textureId];
         result(nil);
-    } else {
+    } else if([@"dragUpdate" isEqualToString:call.method]){
+        
+        CGFloat dx = [call.arguments[@"x"] floatValue];
+        CGFloat dy = [call.arguments[@"y"] floatValue];
+        [_worker updateDragPoint:CGPointMake(dx, dy)];
+        
+    }else{
         result(FlutterMethodNotImplemented);
     }
 }

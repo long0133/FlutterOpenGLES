@@ -76,6 +76,7 @@
 - (void)initGL {
     _context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
     
+    
     [EAGLContext setCurrentContext:_context];
     [self createCVBufferWithSize:_renderSize withRenderTarget:&_target withTextureOut:&_texture];
     

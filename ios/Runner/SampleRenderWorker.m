@@ -36,6 +36,14 @@ const char *GetBundleFileName( const char *fileName )
     CGSize _viewPort;
     float _count;
     glm::vec3 _cubePositions[10];
+    glm::vec3 cameraUp;
+    glm::vec3 cameraPos;
+    glm::vec3 cameraRight;
+    glm::vec3 cameraFront;
+    glm::vec3 Up;
+    
+    float yaw;
+    float pitch;
 }
 @end
 @implementation SampleRenderWorker
@@ -47,13 +55,14 @@ const char *GetBundleFileName( const char *fileName )
     NSString *fragShaderPath = [NSString stringWithCString:GetBundleFileName("fs01.fs") encoding:NSASCIIStringEncoding];
     const char *fsSrc = [[NSString stringWithContentsOfFile:fragShaderPath encoding:NSASCIIStringEncoding error:NULL] cStringUsingEncoding:NSASCIIStringEncoding];
     _viewPort = viewPort;
+    yaw = -90.0;
+    pitch = 0.0;
     
     _program = esLoadProgram(vsSrc, fsSrc);
     if (_program == 0) {
         NSLog(@"program create faild");
     }
     
-     
     _cubePositions[0] = glm::vec3( 0.0f,  0.0f,  0.0f);
     _cubePositions[1] = glm::vec3( 2.0f,  5.0f, -15.0f);
     _cubePositions[2] = glm::vec3(-1.5f, -2.2f, -2.5f);
@@ -65,6 +74,9 @@ const char *GetBundleFileName( const char *fileName )
     _cubePositions[8] = glm::vec3( 1.5f,  0.2f, -1.5f);
     _cubePositions[9] = glm::vec3(-1.3f,  1.0f, -1.5f);
     
+    cameraUp = glm::vec3(0.0,1.0,0.0);
+    cameraPos = glm::vec3(0.0,0.0,6.0);
+    cameraRight = glm::vec3(0.0);
     
     //顶点缓存数组
     glGenVertexArrays(1, &_VAO);
@@ -157,6 +169,7 @@ const char *GetBundleFileName( const char *fileName )
     }
     
     view = glm::translate(view, glm::vec3(0.0f, 0.0f,-6.0f));
+//    view = glm::lookAt(cameraPos, cameraPos + cameraFront, Up);
     glUniformMatrix4fv(glGetUniformLocation(_program, "view"), 1, GL_FALSE, glm::value_ptr(view));
     
     projection = glm::perspectiveFov(glm::radians(45.0f), (float)_viewPort.width, (float)_viewPort.height, 0.1f, 100.0f);
@@ -175,4 +188,28 @@ const char *GetBundleFileName( const char *fileName )
     
 }
 
+- (void)updateDragPoint:(CGPoint)point{
+    float sensetive = 0.001;
+    CGFloat dx = point.x * sensetive;
+    CGFloat dy = point.y * sensetive;
+    
+    yaw += dx;
+    pitch += dy;
+    
+    if (pitch > 89.0) {
+        pitch = 89.0;
+    }else if (pitch < -89.0){
+        pitch = -89.0;
+    }
+    
+    glm::vec3 front;
+    front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+    front.y = sin(glm::radians(pitch));
+    front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+    front = glm::normalize(front);
+    cameraFront = front;
+    cameraRight = glm::normalize(glm::cross(front, cameraUp));
+    Up = glm::normalize(glm::cross(cameraRight, front));
+}
 @end
+

@@ -1,5 +1,10 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:texture_image/custom_widget_page.dart';
+import 'package:texture_image/custom_widget_page_fake.dart';
+import 'package:texture_image/plateform_view_page.dart';
+import 'package:texture_image/texture_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -37,47 +42,66 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  MethodChannel _channel = MethodChannel('opengl_texture');
-
-  bool hasLoadTexture = false;
-  int mainTexture = -1;
-
   @override
   void initState() {
     super.initState();
-
-    newTexture();
   }
 
-  void newTexture() async {
-    mainTexture = await _channel.invokeMethod('newTexture',{
-      'width': 300,
-      'height': 300,
-    });
-    print('dart id: $mainTexture');
-    setState(() {
-      hasLoadTexture = true;
-    });
-  }
-
-  Widget getTextureBody(BuildContext context) {
-    return Container(
-      width: 300,
-      height: 300,
-      child: Texture(textureId: mainTexture,),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
-
-    Widget body = hasLoadTexture ? getTextureBody(context) : Text('loading...');
 
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(child: body,),
+      body: ListView(
+        children: <Widget>[
+          GestureDetector(
+            child: Center(child: Text('自定义控件-伪', style: TextStyle(fontSize: 30),),),
+            onTap: (){
+              Navigator.push(context, PageRouteBuilder(pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation){
+                return CustomFakeWidgetPage();
+              }));
+            },
+          ),
+
+          Divider(height: 2,thickness: 2,),
+
+          GestureDetector(
+            child: Center(child: Text('自定义控件', style: TextStyle(fontSize: 30),),),
+            onTap: (){
+              Navigator.push(context, PageRouteBuilder(pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation){
+                return CustomWidgetPage();
+              }));
+            },
+          ),
+
+          Divider(height: 2,thickness: 2,),
+
+          GestureDetector(
+            child: Center(child: Text('PlatformView', style: TextStyle(fontSize: 30),),),
+            onTap: (){
+              Navigator.push(context, PageRouteBuilder(pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation){
+                return PlatFormViewPage();
+              }));
+            },
+          ),
+
+          Divider(height: 2,thickness: 2,),
+
+          GestureDetector(
+            child: Center(child: Text('外接纹理', style: TextStyle(fontSize: 30),),),
+            onTap: (){
+              Navigator.push(context, PageRouteBuilder(pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation){
+                return TexturePage();
+              }));
+            },
+          ),
+          Divider(height: 2,thickness: 2,),
+        ],
+      ),
     );
   }
+
 }

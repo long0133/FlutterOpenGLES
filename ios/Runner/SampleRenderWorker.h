@@ -9,4 +9,5 @@
 
 @interface SampleRenderWorker : NSObject<OpenGLRenderWorker>
 
+-(void)updateDragPoint:(CGPoint)point;
 @end
